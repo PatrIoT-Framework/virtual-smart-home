@@ -16,6 +16,8 @@
 package com.redhat.patriot.smart_home_virtual.routes;
 
 import com.redhat.patriot.smart_home_virtual.house.HouseBean;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
 /**
@@ -35,12 +37,10 @@ public class SensorRouteBuilder extends IntelligentHomeRouteBuilder {
 //            .process(sensorDataProcessor)
 //            .marshal().json(JsonLibrary.Jackson, true);
 //
-//      from("timer:sensorBroadcast?period=5000")
-//            .setHeader("address", simple(CONFIG.getSensorAddress()))
-//            .to("bulldog:i2c?readLength=2")
-//            .process(sensorDataProcessor)
-//            .marshal().json(JsonLibrary.Jackson, true)
-//            .to("websocket:weather?sendToAll=true");
+      from("timer:sensorBroadcast?period=5000")
+              .setBody(simple("\"temperature\" : 10, \"humidity\" : 100, "))
+              .log("firing")
+            .to("websocket:weather?sendToAll=true");
 
         HouseBean houseBean = HouseBean.getInstance();
 
@@ -48,6 +48,7 @@ public class SensorRouteBuilder extends IntelligentHomeRouteBuilder {
                 .setProperty("type", simple(Object.class.getSimpleName()))
                 .bean(houseBean, "objInfo")
                 .marshal().json(JsonLibrary.Jackson, true);
+
 
     }
 }
