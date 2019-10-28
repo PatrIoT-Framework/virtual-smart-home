@@ -53,3 +53,6 @@ house:
     - name: humidity
       type: Hygrometer
       unit: "%"
+
+    - name: dhtsensor
+      type: DHT12

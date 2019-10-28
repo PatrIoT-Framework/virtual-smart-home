@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018 Patriot project
+  ~ Copyright 2019 Patriot project
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
   ~    you may not use this file except in compliance with the License.
@@ -177,27 +177,6 @@
          </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.0.0</version>
-            <executions>
-               <execution>
-                  <id>validate</id>
-                  <phase>validate</phase>
-                  <configuration>
-                     <configLocation>checkstyle.xml</configLocation>
-                     <encoding>UTF-8</encoding>
-                     <consoleOutput>true</consoleOutput>
-                     <failsOnError>true</failsOnError>
-                     <linkXRef>false</linkXRef>
-                  </configuration>
-                  <goals>
-                     <goal>check</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
             <version>${version.maven.jar.plugin}</version>
             <configuration>
@@ -211,6 +190,28 @@
                   </manifestEntries>
                </archive>
             </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>single</goal>
+                  </goals>
+                  <configuration>
+                     <archive>
+                        <manifest>
+                           <mainClass>io.silverware.microservices.Boot</mainClass>
+                        </manifest>
+                     </archive>
+                     <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                     </descriptorRefs>
+                  </configuration>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>
@@ -235,6 +236,7 @@
             <version>${version.apache.camel}</version>
          </dependency>
       </dependencies>
+
    </dependencyManagement>
    
    <dependencies>
@@ -276,14 +278,11 @@
          <artifactId>annotations</artifactId>
          <version>3.0.1</version>
       </dependency>
-
       <dependency>
-         <groupId>com.redhat.patriot</groupId>
+         <groupId>io.patriot-framework</groupId>
          <artifactId>generator</artifactId>
-         <version>1.0-SNAPSHOT</version>
-
+         <version>2.0.0</version>
       </dependency>
-
    </dependencies>
 
 </project>
