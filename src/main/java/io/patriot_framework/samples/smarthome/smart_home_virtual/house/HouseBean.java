@@ -119,12 +119,12 @@ public final class HouseBean {
             String[] parts = line.split(";");
             List<RGBLight> leds = new ArrayList<>();
 
-            if (parts[0].equals("0xFFFF")) {
+            if (parts[0].equals(Integer.toString(Integer.MAX_VALUE))) { // max value
                 leds = house.getAllDevices(RGBLight.class);
             } else {
                 leds.add((RGBLight) house.getDeviceWithId("colorful-light-" + parts[0]));
             }
-
+            
             for (RGBLight led : leds) {
                 for (int i = 1; i < parts.length - 1; i++) {
                     switch (parts[i]) {

@@ -34,7 +34,7 @@ public class RgbLedRouteBuilder extends IntelligentHomeRouteBuilder {
                 ))
                 .to("direct:led-set-batch");
 
-        final String allLed = Integer.toString(0xFFFF);
+        final String allLed = Integer.toString(Integer.MAX_VALUE);
         from(restBaseUri() + "/led/setrgb/all?httpMethodRestrict=GET")
                 .setBody(simple(allLed + ";r;${header.r}\n"
                         + allLed + ";g;${header.g}\n"
@@ -59,6 +59,7 @@ public class RgbLedRouteBuilder extends IntelligentHomeRouteBuilder {
         from("direct:led")
                 .setProperty("type", simple(RGBLight.class.getSimpleName()))
                 .bean(houseBean, "objInfo")
+                .setHeader("content-type", constant("application/json"))
                 .marshal().json(JsonLibrary.Jackson);
     }
 }
