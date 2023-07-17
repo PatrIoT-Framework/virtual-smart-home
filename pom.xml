@@ -120,7 +120,7 @@
 
       <version.silverware>2.0</version.silverware>
       <version.silverspoon>0.3.0-SNAPSHOT</version.silverspoon>
-      <version.apache.camel>2.16.1</version.apache.camel>
+      <version.apache.camel>2.16.5</version.apache.camel>
       <version.maven.clean>2.5</version.maven.clean>
       <version.maven.compiler>3.2</version.maven.compiler>
       <version.maven.exec>1.4.0</version.maven.exec>
